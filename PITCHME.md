@@ -5,27 +5,21 @@
 ## React Lifecycle Revisited
 
 ```JavaScript
-import React from 'react';
-import { View } from 'react-native';
-
 class Component extends React.Component {
-
 	constructor(props) {
 		super(props);
-		this.state = {};	// initial states
+		// initial states
+		this.state = {};
 	}
-
 	/* pure */
 	render() {
 		return (
 			<View/>
 		);
 	}
-
 	componentDidMount() {
 		// side effects
 	}
-
 }
 ```
 
@@ -99,7 +93,8 @@ render() {
 			<TextInput
 				placeholder={this.props.hint}
 				onChange={(text) => {
-					this.props.onChange(text);	// invoke parent callback
+					// invoke parent callback
+					this.props.onChange(text);
 				}}
 			/>
 		</React.Fragment>
@@ -161,11 +156,11 @@ A reducer is a pure function.
 const initialState = {
 	lang: "en-HK"
 };
-
 export const LanguageReducer = (state = initialState, action) => {
 	switch (action['type']) {
 		case 'Language/SET': {
-			return Object.assign({}, state, {  // note Object.assign
+			// note Object.assign
+			return Object.assign({}, state, {
 				lang: action['payload']['lang']
 			});
 		}
