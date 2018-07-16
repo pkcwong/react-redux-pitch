@@ -334,15 +334,42 @@ let result = yield call((payload) => {
 yield put(ACTION);
 ```
 
+---
+
+## Combining Reducers
+
+```JavaScript
+import { combineReducers } from 'redux';
+
+combineReducers({
+	GithubReducer: GithubReducer,
+	LanguageReducer: LanguageReducer
+})
+```
+
+---
+
+## Combining Sagas
+
+```JavaScript
+import createSagaMiddleware from 'redux-saga';
+import { all, fork } from 'redux-saga/effects';
+
+const saga = createSagaMiddleware();
+
+saga.run(function* () {
+	yield all([
+		GithubSaga
+	].map(fork));
+});
+```
+
+---
+
 ## Register Helpers
 
 ```JavaScript
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import { all, fork } from 'redux-saga/effects';
-import { GithubReducer } from "./reducers/github-reducer";
-import { LanguageReducer } from "./reducers/language-reducer";
-import { GithubSaga } from "./sagas/github-saga";
+/* store.js */
 
 const saga = createSagaMiddleware();
 
