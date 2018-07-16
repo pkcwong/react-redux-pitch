@@ -176,7 +176,6 @@ A helper function for easy action dispatching.
 
 ```JavaScript
 export class LanguageAction {
-
 	/**
 	 * Sets the current language
 	 * @param lang language
@@ -189,7 +188,6 @@ export class LanguageAction {
 			}
 		});
 	}
-
 }
 ```
 
@@ -229,7 +227,7 @@ state['lang'] = action['payload']['lang'];
 return state;
 ```
 
-Not realizing ```Object.assign``` mutates the first argument.
+Not aware that ```Object.assign``` mutates the first argument.
 
 ```JavaScript
 return Object.assign(state, {
@@ -247,6 +245,7 @@ return Object.assign(state, {
 
 The *store* is the object that brings reducers together.
 
+- only ONE single store in an app
 - holds the application state
 - allows access to state via ```getState()```
 - allows state to be updated via ```dispatch(action)```
@@ -264,3 +263,54 @@ export const store = createStore(combineReducers({
 ## Redux Flow
 
 ![](https://image.slidesharecdn.com/reactreduxintroduction-151124165017-lva1-app6891/95/react-redux-introduction-33-638.jpg?cb=1448383914)
+
+---
+
+## A Glance of Redux
+
+- Action -> pure JSON
+- Reducer -> pure function
+- Store -> plain state repository
+
+> How about side effects?
+
+---
+
+## Side-Effect Model
+
+- listen for actions
+- perform side effects
+- optionally dispatch another action
+
+---
+
+## Introduction to redux-saga
+
+A saga is a generator function.
+
+```JavaScript
+yield takeLatest('Github/RELEASE-FETCH', function* (action) {
+	try {
+		let res = yield call((payload) => {
+			return fetch('https://api.github.com/repos/', {
+				method: 'GET'
+			}).then((response) => {
+				if (response.status !== 200) {
+					throw response.json();
+				}
+				return response.json();
+			}).then((res) => {
+				return res;
+			});
+		}, action['payload']);
+		yield put({
+			type: 'Github/RELEASE-FETCH-COMPLETE',
+			payload: res
+		});
+	} catch (err) {
+		console.log(err);
+	}
+});
+```
+
+---
