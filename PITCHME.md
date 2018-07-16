@@ -307,3 +307,29 @@ yield takeLatest('Github/RELEASE-FETCH', function* (action) {
 ```
 
 ---
+
+### redux-saga API
+
+Saga Helpers
+
+```JavaScript
+import { takeEvery, takeLatest } from 'redux-saga/effects';
+
+takeEvery(ACTION, GENERATOR, PAYLOAD);
+takeEvery(ACTION, GENERATOR, PAYLOAD);
+```
+
+---
+
+### redux-saga API
+
+Effects Creator
+
+```JavaScript
+import { call, put } from 'redux-saga/effects';
+
+let result = yield call((payload) => {
+	// return a Promise
+});
+yield put(ACTION);
+```
