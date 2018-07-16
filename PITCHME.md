@@ -116,7 +116,9 @@ render() {
 - keeping states *predictable*
 - keeping React Component *pure*
 
-> pure functions: same input -> same output
+> pure functions:
+
+> same input -> same output
 
 ---
 
@@ -148,18 +150,63 @@ Reducers are just pure functions.
 
 ---
 
+## Actions
+
+Actions are payloads of information that send data from your application to your store.
+
+- a plain JavaScript object
+- the only source of information for the store
+- must have a type property
+- optional payload property
+
+```json
+{
+  "type": "Language/SET",
+  "payload": {
+		"lang": "en-HK"
+	}
+}
+```
+
+---
+
+### Dispatcher
+
+A helper function for easy action dispatching.
+
+```JavaScript
+export class LanguageAction {
+
+	/**
+	 * Sets the current language
+	 * @param lang language
+	 */
+	static setLocale = (lang) => {
+		store.dispatch({
+			type: 'Language/SET',
+			payload: {
+				lang: lang
+			}
+		});
+	}
+
+}
+```
+
+---
+
 ## Reducers
 
 A reducer is a pure function.
 
 ```JavaScript
-const initialState = {
+const init = {
 	lang: "en-HK"
 };
-export const LanguageReducer = (state = initialState, action) => {
+export const LanguageReducer = (state = init, action) => {
 	switch (action['type']) {
+		// capture ACTION
 		case 'Language/SET': {
-			// note Object.assign
 			return Object.assign({}, state, {
 				lang: action['payload']['lang']
 			});
@@ -190,6 +237,28 @@ return Object.assign(state, {
 });
 ```
 
-> Key Concept: State is Read-Only
+> Key Concept:
+
+> State is Read-Only
 
 ---
+
+## Store
+
+The *store* is the object that brings reducers together.
+
+- holds the application state
+- allows access to state via ```getState()```
+- allows state to be updated via ```dispatch(action)```
+
+```JavaScript
+export const store = createStore(combineReducers({
+	GithubReducer: GithubReducer,
+	LanguageReducer: LanguageReducer
+	// ...
+}), applyMiddleware(saga));
+```
+
+## Redux Flow
+
+![](https://image.slidesharecdn.com/reactreduxintroduction-151124165017-lva1-app6891/95/react-redux-introduction-33-638.jpg?cb=1448383914)
