@@ -292,15 +292,8 @@ A saga is a generator function.
 yield takeLatest('Github/RELEASE-FETCH', function* (action) {
 	try {
 		let res = yield call((payload) => {
-			return fetch('https://api.github.com/repos/', {
-				method: 'GET'
-			}).then((response) => {
-				if (response.status !== 200) {
-					throw response.json();
-				}
-				return response.json();
-			}).then((res) => {
-				return res;
+			return new Promise((resolve, reject) => {
+				// do whatever side-effect
 			});
 		}, action['payload']);
 		yield put({
