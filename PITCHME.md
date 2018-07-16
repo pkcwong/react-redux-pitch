@@ -259,6 +259,8 @@ export const store = createStore(combineReducers({
 }), applyMiddleware(saga));
 ```
 
+---
+
 ## Redux Flow
 
 ![](https://image.slidesharecdn.com/reactreduxintroduction-151124165017-lva1-app6891/95/react-redux-introduction-33-638.jpg?cb=1448383914)
