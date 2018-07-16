@@ -3,6 +3,11 @@
   line-height: 0.8;
 }
 
+.reveal section img {
+  border: 0;
+  box-shadow: none;
+}
+
 .reveal pre {
   width: 120%;
   margin-left: -10%;
