@@ -342,8 +342,7 @@ yield put(ACTION);
 import { combineReducers } from 'redux';
 
 combineReducers({
-	GithubReducer: GithubReducer,
-	LanguageReducer: LanguageReducer
+	// ... reducers
 })
 ```
 
@@ -359,7 +358,7 @@ const saga = createSagaMiddleware();
 
 saga.run(function* () {
 	yield all([
-		GithubSaga
+		// ... sagas
 	].map(fork));
 });
 ```
