@@ -333,3 +333,27 @@ let result = yield call((payload) => {
 });
 yield put(ACTION);
 ```
+
+## Register Helpers
+
+```JavaScript
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { all, fork } from 'redux-saga/effects';
+import { GithubReducer } from "./reducers/github-reducer";
+import { LanguageReducer } from "./reducers/language-reducer";
+import { GithubSaga } from "./sagas/github-saga";
+
+const saga = createSagaMiddleware();
+
+export const store = createStore(combineReducers({
+	GithubReducer: GithubReducer,
+	LanguageReducer: LanguageReducer
+}), applyMiddleware(saga));
+
+saga.run(function* () {
+	yield all([
+		GithubSaga
+	].map(fork));
+});
+```
